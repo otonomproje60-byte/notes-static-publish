@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes Static Publish - Editor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-left">
+            <h1>Notes Static Publish</h1>
+            <span class="badge">Editor</span>
+        </div>
+        <div class="topbar-right">
+            <select id="note-select" aria-label="Select note">
+                <option value="">+ New Note</option>
+            </select>
+            <button id="btn-save" class="btn btn-primary" disabled>Save</button>
+            <button id="btn-publish" class="btn btn-secondary">Publish</button>
+        </div>
+    </header>
+
+    <main class="editor-layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>Notes</h2>
+                <input type="text" id="search-input" placeholder="Search notes..." aria-label="Search notes">
+            </div>
+            <ul id="notes-list" class="notes-list"></ul>
+        </aside>
+
+        <div class="editor-pane">
+            <div class="editor-toolbar">
+                <div class="toolbar-group">
+                    <button type="button" data-action="bold" title="Bold (Ctrl+B)"><strong>B</strong></button>
+                    <button type="button" data-action="italic" title="Italic (Ctrl+I)"><em>I</em></button>
+                    <button type="button" data-action="heading" title="Heading">H</button>
+                    <button type="button" data-action="link" title="Link (Ctrl+K)">🔗</button>
+                    <button type="button" data-action="code" title="Inline code">`code`</button>
+                    <button type="button" data-action="codeblock" title="Code block">```</button>
+                </div>
+                <div class="toolbar-group">
+                    <button type="button" data-action="ul" title="Bullet list">• List</button>
+                    <button type="button" data-action="ol" title="Numbered list">1. List</button>
+                    <button type="button" data-action="quote" title="Blockquote">❝</button>
+                </div>
+                <div class="toolbar-group">
+                    <span id="word-count" class="word-count">0 words</span>
+                    <span id="char-count" class="char-count">0 chars</span>
+                </div>
+            </div>
+
+            <div class="editor-split">
+                <textarea id="editor" class="editor-textarea" placeholder="Start writing your note in Markdown...&#10;&#10;# Heading&#10;## Subheading&#10;&#10;**Bold** *italic* `code`&#10;&#10;- List item&#10;1. Numbered item&#10;&#10;> Quote&#10;&#10;[Link](url)"></textarea>
+                <div id="preview" class="editor-preview"></div>
+            </div>
+
+            <div class="editor-footer">
+                <div class="note-meta">
+                    <input type="text" id="note-title" placeholder="Note title" aria-label="Note title">
+                    <input type="text" id="note-tags" placeholder="Tags (comma-separated)" aria-label="Tags">
+                </div>
+                <div class="note-status">
+                    <span id="save-status" class="save-status"></span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <a href="/api/notes" target="_blank">API Docs</a>
+        <span>·</span>
+        <a href="../dist/index.html" target="_blank">Published Site</a>
+        <span>·</span>
+        <span>v0.1.0</span>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

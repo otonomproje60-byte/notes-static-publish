@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Tag: {{ tag }}{% endblock %}
+
+{% block content %}
+<a href="/" class="back-link">← Back to all notes</a>
+
+<h1>#{{ tag }}</h1>
+<p style="color: #666;">{{ notes|length }} note{{ "s" if notes|length != 1 else "" }}</p>
+
+<ul class="note-list">
+    {% for note in notes %}
+    <li class="note-item">
+        <a href="{{ note.slug }}.html" class="note-title">{{ note.title }}</a>
+        <div class="note-meta">
+            {% if note.date %}{{ note.date }} · {% endif %}
+            <span class="tags">
+                {% for t in note.tags %}
+                <a href="tag-{{ t }}.html"><span class="tag">#{{ t }}</span></a>
+                {% endfor %}
+            </span>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

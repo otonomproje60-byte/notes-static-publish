@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}{{ note.title }}{% endblock %}
+
+{% block content %}
+<a href="/" class="back-link">← Back to all notes</a>
+
+<article class="content">
+    <h1>{{ note.title }}</h1>
+    <div class="note-meta">
+        {% if note.date %}{{ note.date }} · {% endif %}
+        <span class="tags">
+            {% for tag in note.tags %}
+            <a href="tag-{{ tag }}.html"><span class="tag">#{{ tag }}</span></a>
+            {% endfor %}
+        </span>
+    </div>
+    <hr style="margin: 20px 0;">
+    {{ note.html | safe }}
+</article>
+{% endblock %}

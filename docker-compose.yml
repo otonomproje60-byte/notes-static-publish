@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  notes-static-publish:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: notes-static-publish
+    restart: unless-stopped
+    ports:
+      - "5001:5001"   # API + Web Editor
+      - "8080:8080"   # Static site (dist/)
+    volumes:
+      - ./data:/app/data
+      - ./notes:/app/notes
+      - ./dist:/app/dist
+      - ./templates:/app/templates
+      - ./static:/app/static
+    environment:
+      - DATABASE_PATH=/app/data/notes.db
+      - NOTES_DIR=/app/notes
+      - DIST_DIR=/app/dist
+      - TEMPLATES_DIR=/app/templates
+      - STATIC_DIR=/app/static
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:5001/healthz"]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3

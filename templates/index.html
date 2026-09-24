@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}All Notes{% endblock %}
+
+{% block content %}
+<ul class="note-list">
+    {% for note in notes %}
+    <li class="note-item">
+        <a href="{{ note.slug }}.html" class="note-title">{{ note.title }}</a>
+        <div class="note-meta">
+            {% if note.date %}{{ note.date }} · {% endif %}
+            <span class="tags">
+                {% for tag in note.tags %}
+                <a href="tag-{{ tag }}.html"><span class="tag">#{{ tag }}</span></a>
+                {% endfor %}
+            </span>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% if notes|length == 0 %}
+<p style="color: #888; text-align: center; padding: 40px 0;">No notes yet. Create a .md file in the <code>notes/</code> directory.</p>
+{% endif %}
+{% endblock %}
